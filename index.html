@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusPulse Events</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #0f0c1a;
+            color: #fff;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            text-align: center;
+            padding: 70px 20px;
+            background: linear-gradient(180deg, #1a132d, #0f0c1a);
+        }
+
+        header h1 {
+            font-size: 48px;
+            color: #a855f7;
+            font-weight: 700;
+        }
+
+        header p {
+            margin-top: 15px;
+            color: #aaa;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ================= FILTER SECTION ================= */
+
+        .filters {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #1a1625;
+            border-radius: 12px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            background: #0f0c1a;
+            color: #fff;
+            min-width: 180px;
+        }
+
+        .status-buttons {
+            display: flex;
+            background: #2a243a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .status-buttons button {
+            padding: 8px 18px;
+            border: none;
+            background: transparent;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .status-buttons button.active {
+            background: #111;
+            color: #fff;
+        }
+
+        /* ================= EVENT CARDS ================= */
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: #1a1625;
+            padding: 25px;
+            border-radius: 14px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .card .club {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            background: #2a243a;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .info {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 6px;
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .upcoming {
+            background: #2563eb;
+        }
+
+        .ongoing {
+            background: #16a34a;
+        }
+
+        .expired {
+            background: #dc2626;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>CampusPulse Events</h1>
+        <p>Your one-stop portal for all college events. Discover, filter, and register for the latest happenings on
+            campus.</p>
+    </header>
+
+    <section class="filters">
+        <input type="text" id="search" placeholder="Search by event name...">
+
+        <select id="department">
+            <option value="all">All Departments</option>
+            <option value="CSE">CSE</option>
+            <option value="ECE">ECE</option>
+            <option value="MBA">MBA</option>
+            <option value="ME">ME</option>
+        </select>
+
+        <select id="category">
+            <option value="all">All Categories</option>
+            <option value="Hackathon">Hackathon</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Seminar">Seminar</option>
+            <option value="Expo">Expo</option>
+            <option value="Contest">Contest</option>
+            <option value="Guest Lecture">Guest Lecture</option>
+        </select>
+
+        <div class="status-buttons">
+            <button class="active" onclick="filterStatus('all',this)">All</button>
+            <button onclick="filterStatus('Upcoming',this)">Upcoming</button>
+            <button onclick="filterStatus('Expired',this)">Expired</button>
+        </div>
+    </section>
+
+    <div class="container" id="eventsContainer">
+
+        <!-- EVENT 1 -->
+        <div class="card" data-dept="CSE" data-category="Hackathon" data-status="Upcoming">
+            <div class="badge upcoming">Upcoming</div>
+            <h2>Quantum Coder: The AI Hackathon</h2>
+            <div class="club">AI & ML Club</div>
+            <div class="tags">
+                <span class="tag">CSE</span>
+                <span class="tag">Hackathon</span>
+            </div>
+            <div class="info">📅 March 10th, 2026</div>
+            <div class="info">📍 CS Block, Auditorium</div>
+        </div>
+
+        <!-- EVENT 2 -->
+        <div class="card" data-dept="ECE" data-category="Workshop" data-status="Ongoing">
+            <div class="badge ongoing">Ongoing</div>
+            <h2>Circuit Symphony: PCB Workshop</h2>
+            <div class="club">IEEE Student Branch</div>
+            <div class="tags">
+                <span class="tag">ECE</span>
+                <span class="tag">Workshop</span>
+            </div>
+            <div class="info">📅 Feb 27th, 2026</div>
+            <div class="info">📍 ECE Lab 404</div>
+        </div>
+
+        <!-- EVENT 3 -->
+        <div class="card" data-dept="MBA" data-category="Seminar" data-status="Expired">
+            <div class="badge expired">Expired</div>
+            <h2>Marketing Mavericks: National Seminar</h2>
+            <div class="club">Business Club</div>
+            <div class="tags">
+                <span class="tag">MBA</span>
+                <span class="tag">Seminar</span>
+            </div>
+            <div class="info">📅 Feb 13th, 2026</div>
+            <div class="info">📍 Main Auditorium</div>
+        </div>
+
+    </div>
+
+    <footer>
+        © 2026 CampusPulse | Built by Abhishek Rao 🚀
+    </footer>
+
+    <script>
+
+        const searchInput = document.getElementById("search");
+        const departmentFilter = document.getElementById("department");
+        const categoryFilter = document.getElementById("category");
+        const cards = document.querySelectorAll(".card");
+
+        searchInput.addEventListener("input", filterEvents);
+        departmentFilter.addEventListener("change", filterEvents);
+        categoryFilter.addEventListener("change", filterEvents);
+
+        let currentStatus = "all";
+
+        function filterStatus(status, btn) {
+            currentStatus = status;
+            document.querySelectorAll(".status-buttons button")
+                .forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            filterEvents();
+        }
+
+        function filterEvents() {
+            const searchText = searchInput.value.toLowerCase();
+            const dept = departmentFilter.value;
+            const category = categoryFilter.value;
+
+            cards.forEach(card => {
+                const title = card.querySelector("h2").textContent.toLowerCase();
+                const cardDept = card.dataset.dept;
+                const cardCategory = card.dataset.category;
+                const cardStatus = card.dataset.status;
+
+                const matchSearch = title.includes(searchText);
+                const matchDept = dept === "all" || dept === cardDept;
+                const matchCategory = category === "all" || category === cardCategory;
+                const matchStatus = currentStatus === "all" || currentStatus === cardStatus;
+
+                if (matchSearch && matchDept && matchCategory && matchStatus) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>
